@@ -1,0 +1,22 @@
+[mysqld_safe]
+syslog
+
+[mysqld]
+
+# innodb_buffer_pool_size = 128M
+
+# log_bin
+
+basedir   = <%=@basedir%>
+datadir   = <%=@datadir%>
+# port = .....
+server_id = <%=@server_id%>
+socket    = <%=@sockdir%>/<%=@instance%>.sock
+pid-file  = /var/run/mysqld/<%=@instance%>.pid
+
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M 
+
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
+
