@@ -27,7 +27,7 @@ myinstance() {
 
     if [[ -v mycnf_$instance ]]; then
       # This is both ugly and correct:
-      eval eval alias mysql=\\\'mysql --defaults-file=\\\"\$mycnf_$instance\\\"\\\'
+      eval eval alias mysql=\\\'mysql --defaults-extra-file=\\\"\$mycnf_$instance\\\"\\\'
       if [[ ! $PATH =~ ^"<%=@basedir%>"/bin: ]]; then
 	export PATH="<%=@basedir%>"/bin:$PATH
       fi
