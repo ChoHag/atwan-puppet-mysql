@@ -1,5 +1,5 @@
 define mysql::instance::initialise
-( $instance, $device, $datadir, $sockdir, $user, $server_id )
+( $instance, $device, $datadir, $sockdir, $user, $data_source, $server_id )
 {
   Exec {
     environment => [
@@ -13,7 +13,7 @@ define mysql::instance::initialise
 
   $bootstrap_a = [
     "${mysql::basedir}/bin/mysqld",
-    '--user="$user"',
+    '--user="$daemon_user"',
     '--bootstrap',
     '--basedir="$basedir"',
     '--datadir="$datadir"',
@@ -25,7 +25,7 @@ define mysql::instance::initialise
   ]
   $bootstrap = join($bootstrap_a, ' ')
 
-  $security_sed       = "s/ABC123xyz/secret/g"
+  $security_sed = "s/ABC123xyz/secret/g"
 
   $stdin_a = [
     'echo use mysql\;',
@@ -37,17 +37,7 @@ define mysql::instance::initialise
   ]
   $stdin = join($stdin_a, ' ; ')
 
-  if $device != 'UNDEFINED' {
-    File[$datadir] { require => Data::FS::Device[$device] }
-  }
-
-  file { $datadir:
-    ensure => directory,
-    owner  => $user,
-    mode   => 0700,
-  }
-
-  -> file { "$datadir/mysql":
+  file { "$datadir/mysql":
     ensure => directory,
     owner  => $user,
     mode   => 0700,

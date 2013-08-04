@@ -1,5 +1,5 @@
 define mysql::instance::service
-( $instance, $device, $datadir, $sockdir, $user, $server_id )
+( $instance, $device, $datadir, $sockdir, $user, $data_source, $server_id )
 {
   file { "/etc/init.d/mysql-$name":
     ensure  => file,
@@ -7,7 +7,10 @@ define mysql::instance::service
     content => template('mysql/instance_init.d.erb'),
   }
 
-#  -> service { "mysql-instance-${title}":
-#    ...
-#  }
+  -> service { "mysql-$name":
+    ensure     => running,
+    enable     => true, # on boot
+    hasrestart => true,
+    hasstatus  => true,
+  }
 }

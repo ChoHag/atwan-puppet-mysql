@@ -1,10 +1,11 @@
 define mysql::instance (
-  $instance  = $name,
-  $device    = 'UNDEFINED',
-  $datadir   = 'UNDEFINED',
-  $sockdir   = 'UNDEFINED',
-  $user      = 'UNDEFINED',
-  $server_id = 'UNDEFINED',
+  $instance    = $name,
+  $device      = 'UNDEFINED',
+  $datadir     = 'UNDEFINED',
+  $sockdir     = 'UNDEFINED',
+  $user        = 'UNDEFINED',
+  $data_source = 'UNDEFINED',
+  $server_id   = 'UNDEFINED',
 ) {
   user { $user:
     ensure     => present,
@@ -23,30 +24,33 @@ define mysql::instance (
 
   # Copy pasta!
 
-  -> mysql::instance::initialise { $title:
-    instance  => $instance,
-    device    => $device,
-    datadir   => $datadir,
-    sockdir   => $sockdir,
-    user      => $user,
-    server_id => $server_id,
+  -> mysql::instance::data { $title:
+    instance    => $instance,
+    device      => $device,
+    datadir     => $datadir,
+    sockdir     => $sockdir,
+    user        => $user,
+    data_source => $data_source,
+    server_id   => $server_id,
   }
 
   -> mysql::instance::config { $title:
-    instance  => $instance,
-    device    => $device,
-    datadir   => $datadir,
-    sockdir   => $sockdir,
-    user      => $user,
-    server_id => $server_id,
+    instance    => $instance,
+    device      => $device,
+    datadir     => $datadir,
+    sockdir     => $sockdir,
+    user        => $user,
+    data_source => $data_source,
+    server_id   => $server_id,
   }
 
   -> mysql::instance::service { $title:
-    instance  => $instance,
-    device    => $device,
-    datadir   => $datadir,
-    sockdir   => $sockdir,
-    user      => $user,
-    server_id => $server_id,
+    instance    => $instance,
+    device      => $device,
+    datadir     => $datadir,
+    sockdir     => $sockdir,
+    user        => $user,
+    data_source => $data_source,
+    server_id   => $server_id,
   }
 }
