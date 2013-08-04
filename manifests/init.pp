@@ -5,6 +5,7 @@ class mysql(
 ) inherits mysql::params {
      class { 'mysql::install': }
   -> class { 'mysql::all_instances': }
+  -> class { 'mysql::userspace': }
   -> Class['mysql']
 }
 

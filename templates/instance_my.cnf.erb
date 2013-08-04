@@ -1,6 +1,10 @@
 [mysqld_safe]
 syslog
 
+[mysql]
+socket    = <%=@sockdir%>/<%=@instance%>.sock
+host      = 127.0.0.1
+
 [mysqld]
 
 # innodb_buffer_pool_size = 128M
