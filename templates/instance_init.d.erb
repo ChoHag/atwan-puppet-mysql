@@ -23,6 +23,8 @@ ${DEBIAN_SCRIPT_DEBUG:+ set -v -x}
 
 basedir="<%=@basedir%>"
 datadir="<%=@datadir%>"
+sockdir="<%=@sockdir%>"
+mysqld_user="<%=@daemon_user%>"
 bindir="$basedir"/bin
 mycnf="$datadir"/my.cnf
 mysqld="$bindir"/mysqld
@@ -102,7 +104,8 @@ case "${1:-''}" in
 	   log_end_msg 0
 	else
 	    # Could be removed during boot
-	    test -e /var/run/mysqld || install -m 755 -o mysql -g root -d /var/run/mysqld
+	    test -e "$sockdir" || install -m 755 -o "$mysqld_user" -g root -d "$sockdir"
+	    test -e /var/run/mysqld || install -m 1777 -o root -g root -d /var/run/mysqld
 
 	    # Start MySQL! 
   	    "$mysqld_safe" --defaults-file="$mycnf" > /dev/null 2>&1 &

@@ -1,9 +1,9 @@
 define mysql::instance::data
-( $instance, $device, $datadir, $sockdir, $user, $data_source, $server_id )
+( $instance, $device, $datadir, $sockdir, $daemon_user, $data_source, $server_id )
 {
   file { $datadir:
     ensure => directory,
-    owner  => $user,
+    owner  => $daemon_user,
     mode   => 0700,
   }
 
@@ -18,7 +18,7 @@ define mysql::instance::data
 	device      => $device,
 	datadir     => $datadir,
 	sockdir     => $sockdir,
-	user        => $user,
+	daemon_user => $daemon_user,
 	data_source => $data_source,
 	server_id   => $server_id,
 
@@ -32,7 +32,7 @@ define mysql::instance::data
 	device      => $device,
 	datadir     => $datadir,
 	sockdir     => $sockdir,
-	user        => $user,
+	daemon_user => $daemon_user,
 	data_source => $data_source,
 	server_id   => $server_id,
 

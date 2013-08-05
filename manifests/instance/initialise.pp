@@ -1,5 +1,5 @@
 define mysql::instance::initialise
-( $instance, $device, $datadir, $sockdir, $user, $data_source, $server_id )
+( $instance, $device, $datadir, $sockdir, $daemon_user, $data_source, $server_id )
 {
   Exec {
     environment => [
@@ -7,7 +7,7 @@ define mysql::instance::initialise
       "HOME=/root", # Well naturally puppet strips this
       "datadir=$datadir",
       "basedir=${mysql::basedir}",
-      "daemon_user=$user",
+      "daemon_user=$daemon_user",
     ],
   }
 
@@ -39,7 +39,7 @@ define mysql::instance::initialise
 
   file { "$datadir/mysql":
     ensure => directory,
-    owner  => $user,
+    owner  => $daemon_user,
     mode   => 0700,
     notify => Exec["mysql-initialise-$title"],
   }

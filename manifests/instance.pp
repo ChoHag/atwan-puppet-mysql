@@ -3,14 +3,14 @@ define mysql::instance (
   $device      = 'UNDEFINED',
   $datadir     = 'UNDEFINED',
   $sockdir     = 'UNDEFINED',
-  $user        = 'UNDEFINED',
+  $daemon_user = 'UNDEFINED',
   $data_source = 'UNDEFINED',
   $server_id   = 'UNDEFINED',
 ) {
-  user { $user:
+  user { $daemon_user:
     ensure     => present,
     system     => true,
-    comment    => 'MySQL user',
+    comment    => "MySQL user for $instance",
     shell      => '/bin/false',
     home       => $datadir,
     managehome => false,
@@ -18,7 +18,7 @@ define mysql::instance (
 
   -> file { $sockdir:
     ensure => directory,
-    owner  => $user,
+    owner  => $daemon_user,
     mode   => '0700'
   }
 
@@ -29,7 +29,7 @@ define mysql::instance (
     device      => $device,
     datadir     => $datadir,
     sockdir     => $sockdir,
-    user        => $user,
+    daemon_user => $daemon_user,
     data_source => $data_source,
     server_id   => $server_id,
   }
@@ -39,7 +39,7 @@ define mysql::instance (
     device      => $device,
     datadir     => $datadir,
     sockdir     => $sockdir,
-    user        => $user,
+    daemon_user => $daemon_user,
     data_source => $data_source,
     server_id   => $server_id,
   }
@@ -49,7 +49,7 @@ define mysql::instance (
     device      => $device,
     datadir     => $datadir,
     sockdir     => $sockdir,
-    user        => $user,
+    daemon_user => $daemon_user,
     data_source => $data_source,
     server_id   => $server_id,
   }

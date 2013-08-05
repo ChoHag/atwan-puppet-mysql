@@ -1,5 +1,5 @@
 define mysql::instance::service
-( $instance, $device, $datadir, $sockdir, $user, $data_source, $server_id )
+( $instance, $device, $datadir, $sockdir, $daemon_user, $data_source, $server_id )
 {
   file { "/etc/init.d/mysql-$name":
     ensure  => file,
