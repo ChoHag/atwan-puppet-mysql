@@ -19,7 +19,7 @@ myinstance() {
     elif [[ $# = 0 ]]; then
       list=1
     elif [[ $# = 1 ]]; then
-      instance=$1
+      instance=${1//-/_}
     else
       echo Error parsing arguments. >&2
       return 1
@@ -39,9 +39,9 @@ myinstance() {
 
   if [[ -v list ]]; then
     echo All MySQL instances:
-    for i in "${instances[@]}"; do
+    for i in <%=@instances.keys.join(' ')%>; do
       echo "$i":
-      eval echo \$\'\\t\'\$mycnf_$instance
+      eval echo \$\'\\t\'\$mycnf_${i//-/_}
       echo
     done
     return $list
