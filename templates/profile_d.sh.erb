@@ -4,9 +4,9 @@
 [ -z "$BASH_VERSION" ] && return
 
 myinstance() {
-  instances=(<%=@instances.keys.join(' ')%>)
+  instances=(<%=@instances.keys.map{|r|r.sub(/-/, '_')}.join(' ')%>)
 <% @instances.each do |n, i| -%>
-  mycnf_<%=n%>="<%=i['datadir']%>/my.cnf"
+  mycnf_<%=n.sub(/-/, '_')%>="<%=i['datadir']%>/my.cnf"
 <% end -%>
 
   unset list
